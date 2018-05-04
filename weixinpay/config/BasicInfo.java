@@ -11,9 +11,9 @@ public class BasicInfo {
 	/**微信账号信息配置**/
 	
 	//公众号appId
-	public static final String appID = "wx01e2df0fb202ae3b";
+	public static final String appID = "";
 	//公众号appSecret
-	public static final String AppSecret = "4d2739105e6c09b35ed52ebde19f5a57";
+	public static final String AppSecret = "";
 	//商户证书路径
 	public static final String KeyPath = "/apiclient_cert.p12";
 	
@@ -27,26 +27,26 @@ public class BasicInfo {
 	public static final String transfersurl ="https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 	
 	//公众号商户号
-	public static final String MchId = "1485864742";
+	public static final String MchId = "";
 	//公众号商户号秘钥
-	public static final String MchKey = "d2bd5a310dec8969802d4cf8c4578d20";	
+	public static final String MchKey = "";	
 	//商家名
-	public static final String Send_Name = "佳电";
+	public static final String Send_Name = "";
 	
 	
 	/***app应用appId***/
-	public static final String APP_AppID = "wx5c8c5dc33d7ddc91";
+	public static final String APP_AppID = "";
 	/***app应用appSecret***/
-	public static final String APP_AppSecret = "921416eeadf854571aa18c3da8fdb18e";
+	public static final String APP_AppSecret = "";
 	/***app应用商户号***/
-	public static final String APP_MchId = "1488903292";
+	public static final String APP_MchId = "";
 	/***app应用商户密钥***/
-	public static final String APP_MchKey = "dsad6f7shc65s9HJ7Y6shcnhaluyxntw";
+	public static final String APP_MchKey = "";
 	
 	/***小程序应用appId***/
-	public static final String XIAO_AppID = "wxa68e3f31ba28d2c5";
+	public static final String XIAO_AppID = "";
 	/***小程序应用appSecret***/
-	public static final String XIAO_AppSecret = "087e1cd572a06052d39c9838b6f7c5c7";
+	public static final String XIAO_AppSecret = "";
 	
 	//微信回调URL
 	/***支付完成后的异步通知地址***/
