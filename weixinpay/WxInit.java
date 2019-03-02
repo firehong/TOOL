@@ -104,9 +104,9 @@ public class WxInit {
 			//异步通知地址
 			PcModel.setNotify_url(BasicInfo.NotifyUrl);
 	         //app应用appId
-			PcModel.setAppid(BasicInfo.APP_AppID);
+			PcModel.setAppid(BasicInfo.XIAO_AppID);
 	         //商户号
-			PcModel.setMch_id(BasicInfo.APP_MchId);
+			PcModel.setMch_id(BasicInfo.XIAO_AppSecret);
 			//请求方式
 			PcModel.setTrade_type("NATIVE");
 			//加密方式

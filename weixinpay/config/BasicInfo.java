@@ -42,7 +42,8 @@ public class BasicInfo {
 	/**商家名**/
 	public static final String Send_Name = "海诺教育";
 	/**商户证书路径**/
-	public static final String KeyPath = "classpath:apiclient_cert.p12";
+	public static final String KeyPath = "apiclient_cert.p12";
+	public static final String linux_KeyPath = "/root/project/conf/apiclient_cert.p12";
 	
 	//微信回调URL
 	/***支付完成后的异步通知地址***/
