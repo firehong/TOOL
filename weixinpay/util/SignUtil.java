@@ -1,4 +1,4 @@
-package com.share.util.weixinpay.util;
+package com.mcfish.util.weixinpay.util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,11 +6,12 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import com.share.util.weixinpay.config.BasicInfo;
-import com.share.util.weixinpay.model.RefundModel;
-import com.share.util.weixinpay.model.SendRedPackModel;
-import com.share.util.weixinpay.model.TransfersModel;
-import com.share.util.weixinpay.model.UnifiedorderModel;
+
+import com.mcfish.util.weixinpay.config.BasicInfo;
+import com.mcfish.util.weixinpay.model.RefundModel;
+import com.mcfish.util.weixinpay.model.SendRedPackModel;
+import com.mcfish.util.weixinpay.model.TransfersModel;
+import com.mcfish.util.weixinpay.model.UnifiedorderModel;
 
 /**
  * 微信签名工具类

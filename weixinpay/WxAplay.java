@@ -1,23 +1,20 @@
-package com.share.util.weixinpay;
+package com.mcfish.util.weixinpay;
 
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
-
-import com.share.common.base.MyException;
-import com.share.common.base.SystemError;
-import com.share.util.weixinpay.config.BasicInfo;
-import com.share.util.weixinpay.model.RefundModel;
-import com.share.util.weixinpay.model.SendRedPackModel;
-import com.share.util.weixinpay.model.TransfersModel;
-import com.share.util.weixinpay.util.PayUtil;
-import com.share.util.weixinpay.util.SignUtil;
-import com.share.util.weixinpay.util.XMLUtil;
+import com.mcfish.base.exception.MyException;
+import com.mcfish.base.exception.SystemError;
+import com.mcfish.util.weixinpay.config.BasicInfo;
+import com.mcfish.util.weixinpay.model.RefundModel;
+import com.mcfish.util.weixinpay.model.SendRedPackModel;
+import com.mcfish.util.weixinpay.model.TransfersModel;
+import com.mcfish.util.weixinpay.util.PayUtil;
+import com.mcfish.util.weixinpay.util.SignUtil;
+import com.mcfish.util.weixinpay.util.XMLUtil;
 
 /**
  * 微信退款相关请求封装
@@ -41,8 +38,7 @@ public class WxAplay {
      * @throws Exception
      */
     public static Map<String, Object>  WeRedUtils(String orderno,
-    		 String re_openid,int amount, 
-    		         HttpServletRequest req) throws Exception{
+    		 String re_openid,int amount) throws Exception{
     	
     	Map<String, Object> mp = new HashMap<String, Object>();
     	SendRedPackModel sendRedPack = new SendRedPackModel();
@@ -67,7 +63,7 @@ public class WxAplay {
              xmlUtil.xstream().alias("xml", sendRedPack.getClass());
             
              String xml = xmlUtil.xstream().toXML(sendRedPack);
-             String response = PayUtil.ssl(BasicInfo.httpurl, xml,req);
+             String response = PayUtil.ssl(BasicInfo.httpurl, xml,BasicInfo.MchId);
              System.out.println(response);
              Map<String, String> map = xmlUtil.parseXml(response);
              if("SUCCESS".equals(map.get("result_code"))){
@@ -92,24 +88,46 @@ public class WxAplay {
     * 微信退款
     * @param rdfund
     * @param req
+    * @param type 1-公众号  2-小程序  3-app
     * @return
     * @throws Exception
     */
    public static Map<String, Object>  refundUtil(RefundModel  rdfund
-		   , HttpServletRequest req) throws Exception{
+		   ,Integer type) throws Exception{
 	   Map<String, Object> mp = new HashMap<String, Object>();
-	   rdfund.setAppid(BasicInfo.appID);
-	   rdfund.setMch_id(BasicInfo.MchId); 
+	   //设置支付账户信息
+	   String MchKey = ""; //商户号秘钥
+	   String MchId = ""; //商户号id
+	   if(type==1) {//公众号
+		   rdfund.setAppid(BasicInfo.appID);
+		   rdfund.setMch_id(BasicInfo.MchId); 
+		   MchKey = BasicInfo.MchKey;
+		   MchId = BasicInfo.MchId;
+	   }else if(type==2){//小程序
+		   rdfund.setAppid(BasicInfo.XIAO_AppID);
+		   rdfund.setMch_id(BasicInfo.XIAO_MchId); 
+		   MchKey = BasicInfo.XIAO_MchKey;
+		   MchId = BasicInfo.XIAO_MchId;
+	   }else if(type==3) {//app
+		   rdfund.setAppid(BasicInfo.APP_AppID);
+		   rdfund.setMch_id(BasicInfo.APP_MchId); 
+		   MchKey = BasicInfo.APP_MchKey;
+		   MchId = BasicInfo.APP_MchId;
+	   }else {
+		   mp.put("errMsg", "type参数有误");
+           return mp;
+	   }
+
 	   rdfund.setNonce_str(PayUtil.getRandomStr());
 	   rdfund.setSign_type("MD5");
-	   rdfund.setSign(SignUtil.sign(SignUtil.createRefundSign(rdfund),BasicInfo.MchKey));
+	   rdfund.setSign(SignUtil.sign(SignUtil.createRefundSign(rdfund),MchKey));
 	   
 	   try{
       	   XMLUtil xmlUtil= new XMLUtil();
            xmlUtil.xstream().alias("xml", rdfund.getClass());
           
            String xml = xmlUtil.xstream().toXML(rdfund);
-           String response = PayUtil.ssl(BasicInfo.refundurl, xml,req);
+           String response = PayUtil.ssl(BasicInfo.refundurl, xml,MchId);
            System.out.println(response);
            Map<String, String> map = xmlUtil.parseXml(response);
            if("SUCCESS".equals(map.get("result_code"))){
@@ -139,7 +157,7 @@ public class WxAplay {
     * @throws Exception
     */
    public static Map<String, Object>  transfersUtil(TransfersModel  transfer
-		   , HttpServletRequest req) throws Exception{
+		   ) throws Exception{
 	   Map<String, Object> mp = new HashMap<String, Object>();
 	   transfer.setMch_appid(BasicInfo.appID);
 	   transfer.setMchid(BasicInfo.MchId);
@@ -153,7 +171,7 @@ public class WxAplay {
            xmlUtil.xstream().alias("xml", transfer.getClass());
           
            String xml = xmlUtil.xstream().toXML(transfer);
-           String response = PayUtil.ssl(BasicInfo.transfersurl, xml,req);
+           String response = PayUtil.ssl(BasicInfo.transfersurl, xml,BasicInfo.MchKey);
            System.out.println(response);
            Map<String, String> map = xmlUtil.parseXml(response);
 

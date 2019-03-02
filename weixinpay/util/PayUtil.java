@@ -1,4 +1,4 @@
-package com.share.util.weixinpay.util;
+package com.mcfish.util.weixinpay.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,9 +20,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
+import org.springframework.util.ResourceUtils;
 
-import com.share.util.weixinpay.WxAplay;
-import com.share.util.weixinpay.config.BasicInfo;
+import com.mcfish.base.exception.MyException;
+import com.mcfish.util.weixinpay.config.BasicInfo;
 
 /**
  * 微信支付相关工具类
@@ -48,11 +49,11 @@ public class PayUtil {
 	    * 发起微信支付相关请求
 	    * @return
 	    */
-	   public static String ssl(String url,String data,HttpServletRequest req){
+	   public static String ssl(String url,String data,String mchId){
 	        StringBuffer message = new StringBuffer();
 	        try {
 	          //  KeyStore keyStore  = KeyStore.getInstance("PKCS12");
-	            SSLContext sslcontext = initSSLContext(req);
+	            SSLContext sslcontext = initSSLContext(mchId);
 	            SSLConnectionSocketFactory sslsf = 
 	            		new SSLConnectionSocketFactory(sslcontext, 
 	            				new String[] { "TLSv1" }, 
@@ -120,26 +121,27 @@ public class PayUtil {
 	    * 初始化微信证书
 	    * @param req
 	    * @return
+	    * @throws MyException 
 	    */
-	   public static SSLContext initSSLContext(HttpServletRequest req) {
+	   public static SSLContext initSSLContext(String mchId) 
+			   throws MyException {
 	       FileInputStream inputStream = null;
 	       try {
-	           inputStream = new FileInputStream(new File(req.getSession().getServletContext().
-						 getRealPath("") + "/WEB-INF/classes"+BasicInfo.KeyPath));
+	    	   File file = (ResourceUtils.getFile(BasicInfo.KeyPath));
+	           inputStream = new FileInputStream(file);
 	       } catch (IOException e) {
 	    	   log.error("商户证书不正确-->>"+e);
-	           throw new RuntimeException("证书不正确！", e);
+	           throw new MyException("证书不正确！", e);
 	       }
-
 	       try {
 	           KeyStore keystore = KeyStore.getInstance("PKCS12");
-	           char[] partnerId2charArray = BasicInfo.MchId.toCharArray();
+	           char[] partnerId2charArray = mchId.toCharArray();
 	           keystore.load(inputStream, partnerId2charArray);
 	           sslContext = SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
 	           return sslContext;
 	       } catch (Exception e) {
 	    	   log.error("商户秘钥不正确-->>"+e);
-	           throw new RuntimeException("秘钥不正确！", e);
+	           throw new MyException("秘钥不正确！", e);
 	       } finally {
 	          
 	       }

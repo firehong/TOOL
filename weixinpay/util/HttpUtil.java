@@ -1,4 +1,4 @@
-package com.share.util.weixinpay.util;
+package com.mcfish.util.weixinpay.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

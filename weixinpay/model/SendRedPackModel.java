@@ -1,4 +1,4 @@
-package com.share.util.weixinpay.model;
+package com.mcfish.util.weixinpay.model;
 
 
 /**

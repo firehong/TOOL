@@ -1,17 +1,16 @@
-package com.share.util.weixinpay;
+package com.mcfish.util.weixinpay;
 
-import javax.servlet.http.HttpServletRequest;
 
-import com.share.util.weixinpay.config.BasicInfo;
-import com.share.util.weixinpay.model.UnifiedorderModel;
+import com.mcfish.util.weixinpay.config.BasicInfo;
+import com.mcfish.util.weixinpay.model.UnifiedorderModel;
 
 /**
- * 微信支付相关配置
+ * 微信支付相关初始化实例配置
  * 
  * @author wuhong  2017年7月28日 上午11:33:13 
  * @version share 1.0
  */
-public class WxConfig {
+public class WxInit {
     
 	/**H5请求实体**/
 	private static  UnifiedorderModel H5Model = null;
@@ -19,6 +18,8 @@ public class WxConfig {
 	private static  UnifiedorderModel XiaoModel = null;
 	/**APP请求实体**/
 	private static  UnifiedorderModel AppModel = null;
+	/**PC请求实体**/
+	private static  UnifiedorderModel PcModel = null;
 
 	
 	/**
@@ -76,7 +77,6 @@ public class WxConfig {
 	public static UnifiedorderModel getInstanceAppModel() {
 		if(AppModel==null) {
 			AppModel = new UnifiedorderModel();
-			AppModel = new UnifiedorderModel();
 			//异步通知地址
 			AppModel.setNotify_url(BasicInfo.NotifyUrl);
 	         //app应用appId
@@ -91,6 +91,30 @@ public class WxConfig {
 	        return AppModel;
 		}else {
 			return AppModel;
+		}
+	}
+	
+	/**
+	 * 获取PC支付实体
+	 * @return
+	 */
+	public static UnifiedorderModel getInstancePcModel() {
+		if(PcModel==null) {
+			PcModel = new UnifiedorderModel();
+			//异步通知地址
+			PcModel.setNotify_url(BasicInfo.NotifyUrl);
+	         //app应用appId
+			PcModel.setAppid(BasicInfo.APP_AppID);
+	         //商户号
+			PcModel.setMch_id(BasicInfo.APP_MchId);
+			//请求方式
+			PcModel.setTrade_type("NATIVE");
+			//加密方式
+			PcModel.setSign_type("MD5"); 
+			PcModel.setSpbill_create_ip("8.8.8.8");
+	        return PcModel;
+		}else {
+			return PcModel;
 		}
 	}
 	
