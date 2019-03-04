@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mcfish.base.exception.MyException;
 import com.mcfish.base.exception.SystemError;
@@ -46,7 +47,12 @@ public class WxPay{
 			           UnifiedorderModel model,Integer type) throws Exception {
 	   //添加随机字符串和签名
 	   model.setNonce_str(PayUtil.getRandomStr());
-	   model.setSign(SignUtil.sign(SignUtil.createUnifiedSign(model),BasicInfo.MchKey));		
+	   if(type==1) { //公众号
+		   model.setSign(SignUtil.sign(SignUtil.createUnifiedSign(model),BasicInfo.MchKey));		
+       }else if(type==2){//小程序
+    	   model.setSign(SignUtil.sign(SignUtil.createUnifiedSign(model),BasicInfo.XIAO_MchKey));		
+       }   
+	   System.out.println(JSON.toJSONString(model));
 	   try{
 		   //将序列化中的类全量名称，用别名替换,用于xml转换
       	   XMLUtil xmlUtil= new XMLUtil();
@@ -157,7 +163,7 @@ public class WxPay{
 	           UnifiedorderModel model) throws Exception {
 
 			model.setNonce_str(PayUtil.getRandomStr());
-			model.setSign(SignUtil.sign(SignUtil.createUnifiedSign(model),
+			model.setSign(SignUtil.sign(SignUtil.createUnifiedPcSign(model),
 					BasicInfo.XIAO_MchKey));		
 			try{
 				
@@ -166,8 +172,8 @@ public class WxPay{
 		
 			  String xml = xmlUtil.xstream().toXML(model);
 			  String response = PayUtil.ssl(BasicInfo.unifiedordersurl, xml,
-					  BasicInfo.XIAO_MchKey);		
-			  
+					  BasicInfo.XIAO_MchId);		
+			  System.out.println(JSONObject.toJSONString(response));
 		      UnifiedorderResponse ret = (UnifiedorderResponse) 
 		 		XMLUtil.fromXML(response,UnifiedorderResponse.class); 
 		      
@@ -200,7 +206,7 @@ public class WxPay{
 		String data = HttpUtil.recieveData(req);
 		//签名验证
 		Map<String, String> map = XMLUtil.parseXml(data);
-		String sign = SignUtil.sign(map, BasicInfo.MchKey);
+		String sign = SignUtil.sign(map, BasicInfo.XIAO_MchKey);
 		if(!sign.equals(map.get("sign"))){ //签名验证失败
 			log.error("支付回调签名验证失败 \r\n "+data);
             return null;

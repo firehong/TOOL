@@ -58,7 +58,7 @@ public class WxInit {
 	        //小程序appId
 			XiaoModel.setAppid(BasicInfo.XIAO_AppID);
 	        //商户号
-			XiaoModel.setMch_id(BasicInfo.MchId);
+			XiaoModel.setMch_id(BasicInfo.XIAO_MchId);
 			//请求方式
 			XiaoModel.setTrade_type("JSAPI");
 			//加密方式
@@ -106,7 +106,7 @@ public class WxInit {
 	         //app应用appId
 			PcModel.setAppid(BasicInfo.XIAO_AppID);
 	         //商户号
-			PcModel.setMch_id(BasicInfo.XIAO_AppSecret);
+			PcModel.setMch_id(BasicInfo.XIAO_MchId);
 			//请求方式
 			PcModel.setTrade_type("NATIVE");
 			//加密方式

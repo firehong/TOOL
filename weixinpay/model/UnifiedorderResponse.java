@@ -27,6 +27,8 @@ public class UnifiedorderResponse{
 	private String result_code;
 	/**返回码**/
 	private String return_code;
+	/**支付二维码**/
+	private String code_url;
 	
 	/**时间戳**/
 	private String timestamp;
@@ -113,6 +115,16 @@ public class UnifiedorderResponse{
 
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
+	}
+
+
+	public String getCode_url() {
+		return code_url;
+	}
+
+
+	public void setCode_url(String code_url) {
+		this.code_url = code_url;
 	}
 
 	

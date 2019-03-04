@@ -21,22 +21,22 @@ public class BasicInfo {
 	
 	
 	/***app应用appId***/
-	public static final String APP_AppID = "wx03a8d12651b2548f";
+	public static final String APP_AppID = "";
 	/***app应用appSecret***/
-	public static final String APP_AppSecret = "ca6d99b82183939d17ea70829d8f9ff5";
+	public static final String APP_AppSecret = "";
 	/***app应用商户号***/
 	public static final String APP_MchId = "1526988291";
 	/***app应用商户密钥***/
-	public static final String APP_MchKey = "040C7864C649B42624FD0C08EBAC239D";
+	public static final String APP_MchKey = "";
 	
 	/***小程序应用appId***/
-	public static final String XIAO_AppID = "wxaf7d2e3816862521";
+	public static final String XIAO_AppID = "";
 	/***小程序应用appSecret***/
 	public static final String XIAO_AppSecret = "";
 	/**小程序商户号**/
 	public static final String XIAO_MchId = "1526988291";
 	/**小程序商户号秘钥**/
-	public static final String XIAO_MchKey = "040C7864C649B42624FD0C08EBAC239D";	
+	public static final String XIAO_MchKey = "";	
 	
 
 	/**商家名**/
@@ -47,9 +47,9 @@ public class BasicInfo {
 	
 	//微信回调URL
 	/***支付完成后的异步通知地址***/
-	public static final String NotifyUrl = "http://106.14.115.107/callBack/callBackWeiXinPay";	
+	public static final String NotifyUrl = "http:///callBack/callBackWeiXinPay";	
 	/***支付完成后的同步返回地址***/
-	public static final String ReturnUrl = "http://106.14.115.107/callBack/callBackWeiXinPay";
+	public static final String ReturnUrl = "http:///callBack/callBackWeiXinPay";
 	
 	
 	//微信统一下单接口
