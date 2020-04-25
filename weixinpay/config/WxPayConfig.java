@@ -1,49 +1,46 @@
-package com.mcfish.util.weixinpay.config;
-/**
- * 基本配置信息类
- * @author TangLin
- * @date 2017年9月6日 下午7:06:42 
- * @version 1.0
- */
+package com.cgmcomm.webapi.utils.weixinpay.config;
 
-public class BasicInfo {
+/**
+ * @date 2020/4/25 15:19
+ * @Description 微信支付相关配置信息
+ * @Param
+ */
+public class WxPayConfig {
 	
 	/**微信账号信息配置**/
 	
 	/**公众号appId**/
-	public static final String appID = "";
+	public static final String appID = "wx515341ebf789cbdc";
 	/**公众号appSecret**/
-	public static final String AppSecret = "";
+	public static final String appSecret = "";
 	/**公众号商户号**/
 	public static final String MchId = "";
 	/**公众号商户号秘钥**/
-	public static final String MchKey = "";	
-	
-	
+	public static final String MchKey = "";
+
+
+
 	/***app应用appId***/
 	public static final String APP_AppID = "";
 	/***app应用appSecret***/
 	public static final String APP_AppSecret = "";
 	/***app应用商户号***/
-	public static final String APP_MchId = "1526988291";
+	public static final String APP_MchId = "";
 	/***app应用商户密钥***/
 	public static final String APP_MchKey = "";
-	
+
 	/***小程序应用appId***/
 	public static final String XIAO_AppID = "";
 	/***小程序应用appSecret***/
 	public static final String XIAO_AppSecret = "";
 	/**小程序商户号**/
-	public static final String XIAO_MchId = "1526988291";
+	public static final String XIAO_MchId = "";
 	/**小程序商户号秘钥**/
-	public static final String XIAO_MchKey = "";	
-	
+	public static final String XIAO_MchKey = "";
 
-	/**商家名**/
-	public static final String Send_Name = "海诺教育";
 	/**商户证书路径**/
-	public static final String KeyPath = "apiclient_cert.p12";
-	public static final String linux_KeyPath = "/root/project/conf/apiclient_cert.p12";
+	public static final String KeyPath = "";
+	public static final String linux_KeyPath = "";
 	
 	//微信回调URL
 	/***支付完成后的异步通知地址***/

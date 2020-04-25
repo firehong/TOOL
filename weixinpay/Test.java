@@ -1,44 +1,52 @@
-package com.mcfish.util.weixinpay;
+package com.cgmcomm.webapi.utils.weixinpay;
 
-import com.mcfish.util.weixinpay.model.RefundModel;
-import com.mcfish.util.weixinpay.model.UnifiedorderModel;
+import com.cgmcomm.webapi.utils.weixinpay.model.PayH5Model;
+import com.cgmcomm.webapi.utils.weixinpay.model.UnifiedorderModel;
+import com.cgmcomm.webapi.utils.weixinpay.wxsdk.WXPay;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Test {
 	
-	
-	
-	
-	public static void main(String[] args) {
-		//app支付
-		UnifiedorderModel model = WxInit.getInstanceAppModel();
-	    model.setOut_trade_no("545435454555354");
-	    model.setTotal_fee(100);
-	    model.setBody("微信订单");	
-	    //HttpServletRequest req 可以不传 获取证书直接使用绝对路径 PayUtil-->ssl
-	   // UnifiedorderResponse res = WxPay.payApp(req, model);
-	    //微信公众号支付
-	    UnifiedorderModel model1 = WxInit.getInstanceH5Model();
-		 model.setOut_trade_no("545435454555354");
-	     model.setTotal_fee(110);
-	     model.setBody("微信订单");
-	     model.setOpenid(""); //微信公众号授权openid			    
-	     //PayH5Model res = WxPay.pay(req, model);
-	    //小程序支付
-		 UnifiedorderModel model2 = WxInit.getInstanceXiaoModel();
-		 model.setOut_trade_no("545435454555354");
-	     model.setTotal_fee(10);
-	     model.setBody("微信订单");
-	     model.setOpenid("");			    
-	     //PayH5Model res = WxPay.pay(req, model);
-	     
-	     //退款
-	     RefundModel  rdfund = new RefundModel();
-		 rdfund.setOut_trade_no("545435454555354");
-		 rdfund.setOut_refund_no("545435454555354");
-		 rdfund.setTotal_fee(100);
-		 rdfund.setRefund_fee(100);
-		 rdfund.setRefund_desc("退款申请");
-		 //Map<String, Object> res  = WxAplay.refundUtil(rdfund,req,2);
+
+	public static void main(String[] args) throws Exception{
+		//js支付
+		UnifiedorderModel unifiedorderModel = WxInit.getInstanceH5Model();
+		unifiedorderModel.setBody("测试支付");
+		unifiedorderModel.setOut_trade_no("111111");
+		unifiedorderModel.setTotal_fee(100);
+		unifiedorderModel.setOpenid("oW-Ai1gU-zCmjkg2nsaSg5JnUKpQ");
+		try {
+			// 再次签名
+			PayH5Model payH5Model = WxPay.pay(unifiedorderModel);
+			System.out.println(payH5Model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//test();
+	}
+
+	public static void test() throws Exception{
+		WXPay wxpay = WxInit.getInstancePay();
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("body", "腾讯充值中心-QQ会员充值");
+		data.put("out_trade_no", "2016090910595900000012");
+		data.put("device_info", "");
+		data.put("fee_type", "CNY");
+		data.put("total_fee", "1");
+		data.put("spbill_create_ip", "123.12.12.123");
+		data.put("notify_url", "http://www.example.com/wxpay/notify");
+		data.put("trade_type", "JSAPI");  // 此处指定为扫码支付
+		data.put("product_id", "12");
+
+		try {
+			Map<String, String> resp = wxpay.unifiedOrder(data);
+			System.out.println(resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
