@@ -12,7 +12,6 @@ import com.cgmcomm.webapi.utils.weixinpay.util.MapUtil;
 import com.cgmcomm.webapi.utils.weixinpay.wxsdk.WXPay;
 import com.cgmcomm.webapi.utils.weixinpay.wxsdk.WXPayUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +23,6 @@ import java.util.Map;
  * @version share 1.0
  */
 @Slf4j
-@Component
 public class WxPay{
 
 	/**

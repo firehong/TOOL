@@ -54,11 +54,25 @@ public class MyConfig extends WXPayConfig {
         return iwxPayDomain;
     }
 
-
-    private byte[] getCertBis() throws Exception {
+    /**
+     * @date 2020/4/26 9:44
+     * @Description 获取证书输入流
+     * @Param
+     */
+    private byte[] getCertBis(){
         try {
             byte[] certData;
-            String certPath = WxPayConfig.linux_KeyPath;
+            String certPath;
+            if(System.getProperty("os.name").toLowerCase().contains("window"))
+            {
+                //window环境下
+                certPath = WxPayConfig.windows_KeyPath;
+            }
+            else
+            {
+                //linux环境下
+                certPath = WxPayConfig.linux_KeyPath;
+            }
             File file = new File(certPath);
             InputStream certStream = new FileInputStream(file);
             certData = new byte[(int) file.length()];

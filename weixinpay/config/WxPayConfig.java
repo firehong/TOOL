@@ -10,9 +10,7 @@ public class WxPayConfig {
 	/**微信账号信息配置**/
 	
 	/**公众号appId**/
-	public static final String appID = "wx515341ebf789cbdc";
-	/**公众号appSecret**/
-	public static final String appSecret = "";
+	public static final String appID = "";
 	/**公众号商户号**/
 	public static final String MchId = "";
 	/**公众号商户号秘钥**/
@@ -39,22 +37,13 @@ public class WxPayConfig {
 	public static final String XIAO_MchKey = "";
 
 	/**商户证书路径**/
-	public static final String KeyPath = "";
-	public static final String linux_KeyPath = "";
+	public static final String windows_KeyPath = "";   // windows环境
+	public static final String linux_KeyPath = "";    // linux环境
 	
 	//微信回调URL
 	/***支付完成后的异步通知地址***/
 	public static final String NotifyUrl = "http:///callBack/callBackWeiXinPay";	
 	/***支付完成后的同步返回地址***/
 	public static final String ReturnUrl = "http:///callBack/callBackWeiXinPay";
-	
-	
-	//微信统一下单接口
-	public static final String unifiedordersurl ="https://api.mch.weixin.qq.com/pay/unifiedorder";		
-	//微信红包退款接口
-	public static final String httpurl ="https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
-	//微信退款接口
-	public static final String refundurl ="https://api.mch.weixin.qq.com/secapi/pay/refund";
-	//企业转账接口
-	public static final String transfersurl ="https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+
 }
