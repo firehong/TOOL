@@ -11,6 +11,7 @@ import com.cgmcomm.webapi.utils.weixinpay.model.UnifiedorderModel;
 import com.cgmcomm.webapi.utils.weixinpay.model.UnifiedorderResponse;
 import com.cgmcomm.webapi.utils.weixinpay.util.MapUtil;
 import com.cgmcomm.webapi.utils.weixinpay.wxsdk.WXPay;
+import com.cgmcomm.webapi.utils.weixinpay.wxsdk.WXPayConstants;
 import com.cgmcomm.webapi.utils.weixinpay.wxsdk.WXPayUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +35,7 @@ public class WxPay{
 	 * @return
 	 * @throws Exception
 	 */
-	public static PayH5Model pay(UnifiedorderModel model) throws Exception {
+	public static PayH5Model pay(UnifiedorderModel model){
 	   try{
 		   WXPay wxpay = WxInit.getInstancePay();
 		   // 对象转map
@@ -134,13 +135,13 @@ public class WxPay{
 	 * @param
 	 * @return
 	 */
-	public static PayH5Model buildPayH5Model(UnifiedorderResponse response) {
+	public static PayH5Model buildPayH5Model(UnifiedorderResponse response) throws Exception{
         String timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
         String nonceStr = WXPayUtil.generateNonceStr();
         String packAge = "prepay_id=" + response.getPrepay_id();
         String signType = "MD5";
         //先构造要签名的map
-        Map<String, String> map = new HashMap<>();
+        final Map<String, String> map = new HashMap<>();
         map.put("appId", response.getAppid());
         map.put("timeStamp", timeStamp);
         map.put("nonceStr", nonceStr);
@@ -153,7 +154,8 @@ public class WxPay{
         model.setNonceStr(nonceStr);
         model.setPackAge(packAge);
         model.setSignType(signType);
-        model.setPaySign(SignUtil.sign(map, WxPayConfig.MchKey));
+
+        model.setPaySign(WXPayUtil.generateSignature(map, WxPayConfig.MchKey, WXPayConstants.SignType.MD5));
         return model;
 	}
 
